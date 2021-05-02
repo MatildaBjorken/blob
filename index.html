@@ -3,82 +3,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Egg Animation</title>
-    <style>
-      body {
-        padding: 0;
-        margin: 0;
-      }
-      canvas {
-        vertical-align: top;
-      }
-    </style>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
   </head>
   <body>
+    
+    <div class="header">
+      <h1 class="header-1">Creative</h1>
+      <h1 class="header-2">Egg</h1>
+    </div>
+
+    <div class="hero-container">
+      <div class="sidebar-text">001</div>
+      <div class="projects">
+        蛋 (Dàn) Oeuf Huevo αυγό (avgó) 卵 (Tamago)
+        <br />
+        Ovum яйцо (yaytso) (yeet-so)
+      </div>
+      <div class="img-nav">
+        <div class="prev">eat</div>
+        <div class="next">me</div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
-    <script>
-      let xoff1 = 0,
-        xoff2 = 0,
-        vertices1,
-        vertices2;
-      function setup() {
-        createCanvas(windowWidth, windowHeight);
-        noStroke();
-        frameRate(40);
-      }
-
-      function draw() {
-        translate(width / 2, height / 2);
-        background(115, 146, 224);
-
-        fill(255);
-        vertices1 = [];
-        for (i = 0; i < 8; i++) {
-          let angle = 2 * PI * (i / 8);
-          let r = map(noise(xoff1 + 100 * i), 0, 1, 100, 270);
-          vertices1.push(r * cos(angle), -r * sin(angle));
-          xoff1 += 0.0009;
-        }
-        amoeba(0, 0, 50, vertices1);
-
-        fill('#f7de74');
-        vertices2 = [];
-        for (i = 0; i < 6; i++) {
-          let angle = 2 * PI * (i / 6);
-          let r = map(noise(xoff2 + 150 * i), 0, 1, 50, 100);
-          vertices2.push(r * cos(angle), -r * sin(angle));
-          xoff2 += 0.001;
-        }
-        amoeba(0, 0, 28, vertices2);
-      }
-
-      p5.prototype.amoeba = function (x, y, ctrl, vertices) {
-        let segments = [];
-        for (let i = 0; i < vertices.length; i += 2) {
-          segments.push(new p5.Vector(vertices[i] - x, vertices[i + 1] - y));
-        }
-        segments.push(new p5.Vector(vertices[0] - x, vertices[1] - y));
-        push();
-        translate(x, y);
-        beginShape();
-        vertex(segments[0].x, segments[0].y);
-
-        for (let i = 0; i < segments.length - 1; i++) {
-          let firstAngle = segments[i].heading();
-          let secondAngle = segments[i + 1].heading();
-
-          bezierVertex(
-            segments[i].x + ctrl * Math.sin(firstAngle),
-            segments[i].y - ctrl * Math.cos(firstAngle),
-            segments[i + 1].x - ctrl * Math.sin(secondAngle),
-            segments[i + 1].y + ctrl * Math.cos(secondAngle),
-            segments[i + 1].x,
-            segments[i + 1].y
-          );
-        }
-
-        endShape();
-        pop();
-      };
-    </script>
+    <script src="./script.js"></script>
   </body>
 </html>
